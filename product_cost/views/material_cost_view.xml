@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Definición de la vista tree -->
+    <record id="view_material_cost_tree" model="ir.ui.view">
+        <field name="name">material.cost</field>
+        <field name="model">material.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Costos de materiales" editable="bottom" multi_edit="1" open_form_view="true">
+                <field name="product_id"/>
+                <field name="unit_cost"/>
+                <field name="quantity"/>
+                <field name="uom_id" readonly="1"/>
+                <field name="material_cost"/>
+                <field name="product_cost_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Definición de la vista Form -->
+    <record id="view_material_cost_form" model="ir.ui.view">
+        <field name="name">material.cost</field>
+        <field name="model">material.cost</field>  <!-- El nombre del modelo -->
+        <field name="arch" type="xml">
+            <form string="Costos de materiales">
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="unit_cost"/>
+                        <field name="quantity"/>
+                        <field name="uom_id" readonly="1"/>
+                        <field name="material_cost"/>
+                        <field name="product_cost_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción asociada al menú (mostrar registros de un modelo) -->
+    <record id="action_materialcost" model="ir.actions.act_window">
+        <field name="name">Costos de materiales</field>
+        <field name="res_model">material.cost</field>  <!-- Cambia 'mi.modelo' por el modelo de tu aplicación -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Submenú -->
+    <menuitem id="menu_materialcost_submenu" name="Configuración" parent="menu_productcost" sequence="3"/>
+
+
+    <!-- Vínculo de la acción con el menú -->
+    <menuitem id="menu_materialcost_action" name="Costos de materiales" parent="menu_materialcost_submenu" action="action_materialcost" sequence="3"/>
+</odoo>

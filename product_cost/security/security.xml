@@ -1,0 +1,59 @@
+<odoo>
+    <!-- Grupo de administración del módulo -->
+    <record id="group_product_cost" model="res.groups">
+        <field name="name">product_cost</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Asignación de acceso al modelo -->
+    <record id="access_product_cost" model="ir.model.access">
+        <field name="name">product_cost</field>
+        <field name="model_id" ref="model_product_cost"/>
+        <field name="group_id" ref="group_product_cost"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="access_material_cost" model="ir.model.access">
+        <field name="name">material_cost</field>
+        <field name="model_id" ref="model_material_cost"/>
+        <field name="group_id" ref="group_product_cost"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="access_material_tools_cost" model="ir.model.access">
+        <field name="name">material_tools_cost</field>
+        <field name="model_id" ref="model_material_tools_cost"/>
+        <field name="group_id" ref="group_product_cost"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="access_cutting_cost" model="ir.model.access">
+        <field name="name">cutting_cost</field>
+        <field name="model_id" ref="model_cutting_cost"/>
+        <field name="group_id" ref="group_product_cost"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+        <record id="access_operating_cost" model="ir.model.access">
+        <field name="name">operating_cost</field>
+        <field name="model_id" ref="model_operating_cost"/>
+        <field name="group_id" ref="group_product_cost"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+</odoo>

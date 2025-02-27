@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Definición de la vista tree -->
+    <record id="view_cutting_cost_tree" model="ir.ui.view">
+        <field name="name">cutting.cost</field>
+        <field name="model">cutting.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Costo de corte" editable="bottom" multi_edit="1" open_form_view="true">
+                <field name="product_id"/>
+                <field name="time"/>
+                <field name="uom_id"/>
+                <field name="price"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+
+     <!-- Definición de la vista Form -->
+    <record id="view_cutting_cost_form" model="ir.ui.view">
+        <field name="name">cutting.cost</field>
+        <field name="model">cutting.cost</field>  <!-- El nombre del modelo -->
+        <field name="arch" type="xml">
+            <form string="Costo de corte">
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="time" />
+                        <field name="uom_id" />
+                        <field name="price"/>
+                        <field name="total"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Acción asociada al menú (mostrar registros de un modelo) -->
+    <record id="action_cutting_cost" model="ir.actions.act_window">
+        <field name="name">Costo de corte</field>
+        <field name="res_model">cutting.cost</field>  <!-- Cambia 'mi.modelo' por el modelo de tu aplicación -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Submenú -->
+    <menuitem id="menu_cuttingcost_submenu" name="Configuración" parent="menu_productcost" sequence="2"/>
+
+
+    <!-- Vínculo de la acción con el menú -->
+    <menuitem id="menu_cutting_cost_action" name="Costo de corte" parent="menu_materialcost_submenu" action="action_cutting_cost" sequence="6"/>
+</odoo>

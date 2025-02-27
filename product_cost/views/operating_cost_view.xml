@@ -1,0 +1,52 @@
+<odoo>
+    <!-- Definición de la vista tree -->
+    <record id="view_operating_cost_tree" model="ir.ui.view">
+        <field name="name">operating.cost</field>
+        <field name="model">operating.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Costo de operacion" editable="bottom" multi_edit="1" open_form_view="true">
+                <field name="product_id"/>
+                <field name="quantity_time" />
+                <field name="uom_id" />
+                <field name="sales_price"/>
+                <field name="total"/>
+            </tree>
+        </field>
+    </record>
+
+
+     <!-- Definición de la vista Form -->
+    <record id="view_operating_cost_form" model="ir.ui.view">
+        <field name="name">operating.cost</field>
+        <field name="model">operating.cost</field>  <!-- El nombre del modelo -->
+        <field name="arch" type="xml">
+            <form string="Costo de operacion">
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="quantity_time" />
+                        <field name="sales_price"/>
+                        <field name="total"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Acción asociada al menú (mostrar registros de un modelo) -->
+    <record id="action_operating_cost" model="ir.actions.act_window">
+        <field name="name">Costo de operacion</field>
+        <field name="res_model">operating.cost</field>  <!-- Cambia 'mi.modelo' por el modelo de tu aplicación -->
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- Submenú -->
+    <menuitem id="menu_operatingcost_submenu" name="Configuración" parent="menu_productcost" sequence="2"/>
+
+
+    <!-- Vínculo de la acción con el menú -->
+    <menuitem id="menu_operating_cost_action" name="Costo de operacion" parent="menu_materialcost_submenu" action="action_operating_cost" sequence="5"/>
+</odoo>
