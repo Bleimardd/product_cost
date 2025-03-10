@@ -8,7 +8,7 @@ class material_cost(models.Model):
 
 
     product_id = fields.Many2one('product.product', string="Producto", required=True)
-    unit_cost = fields.Float(string="Costo",related='product_id.product_tmpl_id.standard_price', store=True,readonly=True)
+    unit_cost = fields.Float(string="Costo",related='product_id.standard_price', store=True,readonly=True)
     quantity = fields.Float(String="Cantidad", digit=(10, 2), default=0.0)
     uom_id = fields.Many2one(
         'uom.uom',
