@@ -27,10 +27,8 @@ class product_cost(models.Model):
     product_price = fields.Float( compute="_compute_price_product", String = "Precio del producto", digit = (10, 2), default = 0.0)
     product_total_cost = fields.Float(compute="_compute_product_total_cost", String = "Costo del producto", digit = (10, 2), default = 0.0, readonly = True)
 
-
     material_cost_ids = fields.One2many('material.cost', 'product_cost_id', string="Costos de Material")
     total_line_products = fields.Float(String = "Total de materiales", compute="_compute_total_line_products", digit = (10, 2), default = 0.0, readonly = True)
-
 
     material_tools_cost_ids = fields.One2many('material.tools.cost', 'material_tools_cost_id', string="Costos de Material y Herramienta")
     total_service_machines_tools = fields.Float( compute="_compute_total_service_machines_tools", String = "Total de servicio de maquinas y herramientas", digit = (10, 2), default = 0.0, readonly = True)
@@ -42,6 +40,8 @@ class product_cost(models.Model):
 
     operating_cost_ids = fields.One2many('operating.cost', 'operating_cost_id', string="Costos de operacion")
     total_operating_cost = fields.Float(compute="_compute_total_operating_cost",String = "Total costo de operacion", digit = (10, 2), default = 0.0, readonly = True)
+
+
 
     def action_view_product(self):
         self.ensure_one()
@@ -99,36 +99,27 @@ class product_cost(models.Model):
 
 
                 if self.material_cost_ids:
-
                     for material_ids in self.material_cost_ids:
                         mrp_lines = self.env['mrp.bom.line'].create({
                             'bom_id': mrp.id,
                             'product_id': material_ids.product_id.id,
                             'product_qty': material_ids.quantity,
-
                         })
 
                 if self.material_tools_cost_ids:
-
                     for tools_cost_ids in self.material_tools_cost_ids:
                         mrp_lines = self.env['mrp.bom.line'].create({
                             'bom_id': mrp.id,
                             'product_id': tools_cost_ids.product_id.id,
                             'product_qty': 1,
-
                         })
 
                 if self.cutting_cost_ids:
-
-
-
                     for cutting_ids in self.cutting_cost_ids:
-
                         mrp_lines = self.env['mrp.bom.line'].create({
                             'bom_id': mrp.id,
                             'product_id': cutting_ids.product_id.id,
                             'product_qty': cutting_ids.time,
-
                         })
 
 
@@ -139,7 +130,6 @@ class product_cost(models.Model):
                             'bom_id': mrp.id,
                             'product_id': operating_ids.product_id.id,
                             'product_qty': operating_ids.quantity_time,
-
                         })
 
 
@@ -150,11 +140,71 @@ class product_cost(models.Model):
 
         return
 
+
+
+
+    #---------------------------------
+    def action_update_product(self):
+
+        # _logger.info(f"El producto se : {self.product_smart_id}")
+        # print(self.product_smart_id.id)
+        products = self.env['product.template'].search([('id', '=', self.product_smart_id.id)])
+
+        products.write({'standard_price': self.product_total_cost, 'list_price': self.product_price})
+
+        bom_records = self.env['mrp.bom'].search([('product_tmpl_id', '=', self.product_smart_id.id)])
+
+        bom_lines_records = self.env['mrp.bom.line'].search([('bom_id', '=', bom_records.id)])
+
+        if bom_lines_records:
+            bom_lines_records.unlink()
+
+
+        if self.material_cost_ids:
+            for material_ids in self.material_cost_ids:
+                bom_records.write({
+                    'bom_line_ids': [(0, 0, {
+                    'product_id': material_ids.product_id.id,
+                    'product_qty': material_ids.quantity,
+                    })]
+                })
+
+        if self.material_tools_cost_ids:
+            for tools_cost_ids in self.material_tools_cost_ids:
+                bom_records.write({
+                    'bom_line_ids': [(0, 0, {
+                        'product_id': tools_cost_ids.product_id.id,
+                        'product_qty': 1,
+                    })]
+                })
+
+        if self.cutting_cost_ids:
+            for cutting_ids in self.cutting_cost_ids:
+                bom_records.write({
+                    'bom_line_ids': [(0, 0, {
+                        'product_id': cutting_ids.product_id.id,
+                        'product_qty': cutting_ids.time,
+                    })]
+                })
+
+        if self.operating_cost_ids:
+            for operating_ids in self.operating_cost_ids:
+                bom_records.write({
+                    'bom_line_ids': [(0, 0, {
+                        'product_id': operating_ids.product_id.id,
+                        'product_qty': operating_ids.quantity_time,
+                    })]
+                })
+
+        return
+
+
+
+
     @api.depends('material_cost_ids')
     def _compute_total_line_products(self):
         for record in self:
             record.total_line_products = sum(record.material_cost_ids.mapped('material_cost'))
-
 
     @api.depends('material_tools_cost_ids')
     def _compute_total_service_machines_tools(self):
@@ -208,17 +258,29 @@ class product_cost(models.Model):
                 (0, 0, {'product_id': 128}),
                 (0, 0, {'product_id': 110}),
 
-
                 (0, 0, {'product_id': 106}),
                 (0, 0, {'product_id': 111})
-
             ]
 
         return record
 
+    #@api.model
+    def write(self, vals):
+        resultado = super(product_cost, self).write(vals)
+        self.action_update_product()
+        return resultado
 
 
+    product_id = fields.Many2one('product.product', string="Producto")
+    is_product_created = fields.Boolean(compute="_compute_is_product_created", store=True)
 
+    #@api.depends('product_id')
+    def _compute_is_product_created(self):
+        #productsearch = self.env['product.product'].search([('name', '=', self.name)], limit=1)
+        print("HEEEEEEEEEEEEEREEEEEEEEE")
+        for record in self:
+            record.is_product_created = bool(record.product_id)
+            print("*  ", record.is_product_created)
 
 
 

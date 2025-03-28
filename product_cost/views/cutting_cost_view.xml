@@ -6,10 +6,10 @@
         <field name="arch" type="xml">
             <tree string="Costo de corte" editable="bottom" multi_edit="1" open_form_view="true">
                 <field name="product_id"/>
-                <field name="time"/>
+                <field name="time" string = "Tiempo"/>
                 <field name="uom_id"/>
-                <field name="price"/>
-                <field name="total"/>
+                <field name="price" string = "Precio"/>
+                <field name="total" string = "Total"/>
             </tree>
         </field>
     </record>
@@ -24,10 +24,10 @@
                 <sheet>
                     <group>
                         <field name="product_id"/>
-                        <field name="time" />
-                        <field name="uom_id" />
-                        <field name="price"/>
-                        <field name="total"/>
+                        <field name="time" string = "Tiempo"/>
+                        <field name="uom_id"/>
+                        <field name="price" string = "Precio"/>
+                        <field name="total" string = "Total"/>
                     </group>
                 </sheet>
             </form>

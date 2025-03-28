@@ -34,5 +34,6 @@
         'views/material_tools_service_cost_view.xml',
         'views/cutting_cost_view.xml',
         'views/operating_cost_view.xml',
+        'views/cutting_parameters_view.xml',
     ],
 }

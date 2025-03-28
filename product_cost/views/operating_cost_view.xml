@@ -4,7 +4,7 @@
         <field name="name">operating.cost</field>
         <field name="model">operating.cost</field>
         <field name="arch" type="xml">
-            <tree string="Costo de operacion" editable="bottom" multi_edit="1" open_form_view="true">
+            <tree string="Costos de operacion" editable="bottom" multi_edit="1" open_form_view="true">
                 <field name="product_id"/>
                 <field name="quantity_time" />
                 <field name="uom_id" />
@@ -25,6 +25,7 @@
                     <group>
                         <field name="product_id"/>
                         <field name="quantity_time" />
+                        <field name="uom_id" />
                         <field name="sales_price"/>
                         <field name="total"/>
                     </group>

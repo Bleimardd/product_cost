@@ -7,10 +7,10 @@
             <tree string="Costos de materiales" editable="bottom" multi_edit="1" open_form_view="true">
                 <field name="product_id"/>
                 <field name="unit_cost"/>
-                <field name="quantity"/>
+                <field name="quantity" string = "Cantidad"/>
                 <field name="uom_id" readonly="1"/>
-                <field name="material_cost"/>
-                <field name="product_cost_id"/>
+                <field name="material_cost" string = "Costo de material"/>
+                <field name="product_cost_id" string = "Costo del producto"/>
             </tree>
         </field>
     </record>
@@ -25,10 +25,10 @@
                     <group>
                         <field name="product_id"/>
                         <field name="unit_cost"/>
-                        <field name="quantity"/>
+                        <field name="quantity" string = "Cantidad"/>
                         <field name="uom_id" readonly="1"/>
-                        <field name="material_cost"/>
-                        <field name="product_cost_id"/>
+                        <field name="material_cost" string = "Costo de material"/>
+                        <field name="product_cost_id" string = "Costo del producto"/>
                     </group>
                 </sheet>
             </form>

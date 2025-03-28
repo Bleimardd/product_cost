@@ -6,6 +6,9 @@
         <field name="arch" type="xml">
             <tree string="Costos de productos">
                 <field name="name"/>
+                <field name="product_price" string = "Precio del producto"/>
+                <field name="product_total_cost" string = "Costo total del producto"/>
+                <field name="stage" string = "Estado"/>
             </tree>
         </field>
     </record>
@@ -17,53 +20,35 @@
         <field name="arch" type="xml">
             <form string="Costos de productos">
                 <header>
-
                     <div class="oe_button_box" name="button_box">
                         <button type="object" name="action_view_product"
                             class="oe_stat_button" icon="fa-cube" string="Producto"
-                            groups="product_cost.group_product_cost"
-                            />
-
-
+                            groups="product_cost.group_product_cost"/>
                     </div>
 
-
-
-
-                    <button name="action_create_product" type="object" string="Crear Producto"
+                  <button name="action_create_product" type="object" string="Crear Producto"
                             class="oe_highlight"
                             groups="product_cost.group_product_cost"
-                            invisible="stage != 'approved'"/>
-
-
-
+                            invisible="product_smart_id"/>
                     <field name="stage" widget="statusbar" options="{'clickable': True}"/>
                 </header>
                 <sheet>
-
-
-
-
-
                     <group>
                         <field name="name"/>
                         <field name="product_smart_id"/>
+                    </group>
+                    <group>
+                        <group string="Costo">
+                            <field name="product_total_cost" string = "Costo total del producto:"/>
+                        </group>
 
                     </group>
                     <group>
                         <group>
-
                         </group>
                         <group string="Precio">
-                             <field name="gain_factor"/>
-                             <field name="product_price"/>
-                        </group>
-                    </group>
-                    <group>
-                        <group>
-                        </group>
-                        <group string="Costo">
-                            <field name="product_total_cost"/>
+                             <field name="gain_factor" string = "Factor de ganancia:"/>
+                             <field name="product_price" string = "Precio del producto:"/>
                         </group>
                     </group>
                      <group string="Costo de Materiales">
@@ -75,19 +60,18 @@
                         </group>
 
                         <group>
-                            <field name="total_line_products"/>
+                            <field name="total_line_products" string="Total linea de productos"/>
                         </group>
                     </group>
                     <group string="Costo de Servicio por maquinarias y herramientas">
-                        <field name="material_tools_cost_ids"/>
-
+                        <field name="material_tools_cost_ids" string="Total Costo de materiales"/>
                     </group>
                     <group>
                         <group>
 
                         </group>
                         <group>
-                             <field name="total_service_machines_tools"/>
+                             <field name="total_service_machines_tools" string = "Total de servicios y herramientas"/>
 
                         </group>
                     </group>
@@ -100,7 +84,7 @@
 
                         </group>
                         <group>
-                             <field name="total_service_cort"/>
+                             <field name="total_service_cort" string="Total Costo de Corte"/>
                         </group>
                     </group>
                     <group string="Costo de Operación">
@@ -112,7 +96,7 @@
 
                         </group>
                         <group>
-                            <field name="total_operating_cost"/>
+                            <field name="total_operating_cost" string="Total Costo de Operación"/>
                         </group>
                     </group>
                 </sheet>

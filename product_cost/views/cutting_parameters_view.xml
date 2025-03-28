@@ -1,0 +1,40 @@
+<odoo>
+    <!-- Definición de la vista tree -->
+    <record id="view_cutting_parameters_tree" model="ir.ui.view">
+        <field name="name">cutting.parameters</field>
+        <field name="model">cutting.parameters</field>
+        <field name="arch" type="xml">
+            <tree string="Parametros de corte" editable="bottom" multi_edit="1" open_form_view="true">
+                <field name="product_id" string = "Nombre del producto"/>
+                <field name="product_variant_id"/>
+                <field name="separation" string = "Separación"/>
+                <field name="process" string = "Proceso"/>
+                <field name="color"/>
+                <field name="speed" string = "Velocidad"/>
+                <field name="maximum_power" string = "Poder máximo"/>
+                <field name="minimum_power" string = "Poder mínimo"/>
+                <field name="number_passed" string = "Número de pasadas"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!-- Acción asociada al menú (mostrar registros de un modelo) -->
+    <record id="action_cutting_parameters" model="ir.actions.act_window">
+        <field name="name">Parametros de corte</field>
+        <field name="res_model">cutting.parameters</field>  <!-- Cambia 'mi.modelo' por el modelo de tu aplicación -->
+        <field name="view_mode">tree</field>
+    </record>
+
+
+
+    <!-- Menú principal -->
+    <menuitem id="menu_cutting_parameters" name="Parametros de corte" sequence="10"/>
+
+    <!-- Submenú -->
+    <menuitem id="menu_cutting_parameters_submenu" name="Parametros de corte" parent="menu_cutting_parameters" sequence="1"/>
+
+    <!-- Vínculo de la acción con el menú -->
+    <menuitem id="menu_cutting_parameters_action" name="Parametros de corte" parent="menu_cutting_parameters" action="action_cutting_parameters" sequence="2"/>
+</odoo>

@@ -6,3 +6,5 @@ from . import material_cost
 from . import material_tools_service_cost
 from . import cutting_cost
 from . import operating_cost
+from . import cutting_parameters
+from . import process_type_parameters
